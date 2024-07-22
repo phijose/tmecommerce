@@ -1,0 +1,23 @@
+CRUD assignment
+
+TigmaMinds Ecommerce App
+
+Day 1:
+- create an app named TigmaMinds eCommerce
+- setup a postgres database named TMEcommerce
+- create a table named user with columns username and password ( username should be unique and not null and min length of 5 )
+- create two APIs
+- signup API -
+	accepts two values through req body : username and password ( both strings )
+	will create a new record in the user table ( validation : password should contain atleast 1 alphabet and 1 number )
+- login API -
+	accepts two values through req body : username and password ( both strings )
+	will check if user with username exist in the user table, if exists check if the supplied password is the password corresponding to the user.
+	if password correct : return 200 ok with message : login successful
+	if user not exists : return 404 not found with message : user does not exist, user signup to create a user
+	if password incorrect : return 401 unauthenticated with message : wrong password
+
+
+notes :
+For now don't use JPA only use JDBC
+You can set up postgres in docker if you want, but if u r setting up in docker make sure u r connecting a volume mount so that ypur data wont be lost
