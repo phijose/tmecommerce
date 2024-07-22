@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ResponseDTO<T> {
     private T message;
-    private String requestedPath;
+    private String path;
     private LocalDateTime timestamp;
 
-    public ResponseDTO(T message, String requestedPath) {
+    public ResponseDTO(T message, String path) {
         this.message = message;
-        this.requestedPath = requestedPath;
+        this.path = path;
         this.timestamp = LocalDateTime.now();
     }
 }
