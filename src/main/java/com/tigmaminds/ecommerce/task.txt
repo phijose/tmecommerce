@@ -21,3 +21,22 @@ Day 1:
 notes :
 For now don't use JPA only use JDBC
 You can set up postgres in docker if you want, but if u r setting up in docker make sure u r connecting a volume mount so that ypur data wont be lost
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+CRUD assignment
+
+TigmaMinds Ecommerce App
+
+Day 2:
+- Introduce a new field to your user table called "role", which accepts 2 values USER, ADMIN. change the existing signup api to accept a field called "role".
+- create a new table called products with columns - id, name, category, brand and price
+- write below APIs ,
+	- create - create a new product with above data ( only users with ADMIN role can do the operation, for a USER, it return 403 forbidden )
+	- edit - edit the data of an existing product ( only users with ADMIN role can do the operation, for a USER, it return 403 forbidden )
+	- delete - delete a product by id ( only users with ADMIN role can do the operation, for a USER, it return 403 forbidden )
+	- getAll - get All the products
+	- getProdutById - get a product by id
+notes :
+use java features such as Enum for creating constant values of roles
+you are free to use JPA if u r comfortable with it

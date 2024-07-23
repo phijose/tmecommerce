@@ -2,7 +2,7 @@ package com.tigmaminds.ecommerce.service;
 
 import com.tigmaminds.ecommerce.dao.UsersDao;
 import com.tigmaminds.ecommerce.dto.UserDetailDTO;
-import com.tigmaminds.ecommerce.service.impl.BaseServiceImpl;
+import com.tigmaminds.ecommerce.service.impl.AuthServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,15 +14,15 @@ import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class BaseServiceTest {
+public class AuthServiceTest {
 
     @InjectMocks
-    BaseServiceImpl baseService;
+    AuthServiceImpl baseService;
 
     @Mock
     UsersDao usersDao;
 
-    UserDetailDTO userDetailDTO = new UserDetailDTO("phijose@gmail.com","1234qwer");
+    UserDetailDTO userDetailDTO = new UserDetailDTO("phijose@gmail.com","1234qwer","user");
 
     @BeforeEach
     void setUp(){

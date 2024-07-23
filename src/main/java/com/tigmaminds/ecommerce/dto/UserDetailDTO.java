@@ -14,4 +14,7 @@ public class UserDetailDTO {
     private String username;
     @Pattern(regexp = "^(?=.*\\d)(?=.*[a-zA-Z]).{8,}$", message = "password should contain atleast 1 alphabet and number")
     private String password;
+    @Pattern(regexp = "^(admin|user)$",message = "Invalid Role")
+    private String role;
+
 }

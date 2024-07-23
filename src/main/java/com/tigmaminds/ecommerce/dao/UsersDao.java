@@ -4,7 +4,6 @@ import com.tigmaminds.ecommerce.dto.UserDetailDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class UsersDao {
                 List<UserDetailDTO> userDetailDTOList = new ArrayList<>();
                 do{
                     userDetailDTOList.add(new UserDetailDTO(rs.getString("username")
-                            ,rs.getString("password")));
+                            ,rs.getString("password"),rs.getString("role")));
                 }while (rs.next());
                 return userDetailDTOList;
             }
@@ -42,6 +41,12 @@ public class UsersDao {
         String sql = "SELECT COUNT(*) FROM users WHERE username = ? and password = ?";
         Integer count = jdbcTemplate.queryForObject(sql,new Object[]{username,password},Integer.class);
         return count;
+    }
+
+    public Boolean isAdmin(String username){
+        String sql = "SELECT COUNT(*) FROM users WHERE username = ? AND role = ?";
+        String role = "admin";
+        return jdbcTemplate.queryForObject(sql,Integer.class,username,role)>0;
     }
 
     public int setUserByUsernamAndPassword(String username, String password){

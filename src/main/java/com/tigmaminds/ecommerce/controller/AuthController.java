@@ -2,7 +2,7 @@ package com.tigmaminds.ecommerce.controller;
 
 import com.tigmaminds.ecommerce.dto.ResponseDTO;
 import com.tigmaminds.ecommerce.dto.UserDetailDTO;
-import com.tigmaminds.ecommerce.service.BaseService;
+import com.tigmaminds.ecommerce.service.AuthService;
 import com.tigmaminds.ecommerce.validator.UserDetailsValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -18,23 +18,18 @@ import java.util.Map;
 @RestController
 public class AuthController {
 
-    private final BaseService baseService;
+    private final AuthService authService;
     private final UserDetailsValidator userDetailsValidator;
 
-    public AuthController(BaseService baseService, UserDetailsValidator userDetailsValidator){
-        this.baseService = baseService;
+    public AuthController(AuthService authService, UserDetailsValidator userDetailsValidator){
+        this.authService = authService;
         this.userDetailsValidator = userDetailsValidator;
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@Valid @RequestBody UserDetailDTO userDetailDTO,
                                               HttpServletRequest request,BindingResult bindingResult){
-        Map<String, String> validationResult = userDetailsValidator.validate(userDetailDTO);
-//        if (!validationResult.isEmpty()) {
-//            return new ResponseEntity<>(new ResponseDTO<Map<String, String>>(validationResult
-//                    ,request.getRequestURI()), HttpStatus.BAD_REQUEST);
-//        }
-        if(baseService.signUpUser(userDetailDTO))
+        if(authService.signUpUser(userDetailDTO))
             return new ResponseEntity<>(new ResponseDTO<String>("User Inserted 1 row created"
                     ,request.getRequestURI()), HttpStatus.OK);
         else
@@ -45,13 +40,8 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@Valid @RequestBody UserDetailDTO userDetailDTO,
                                     HttpServletRequest request,BindingResult bindingResult) {
-        Map<String, String> validationResult = userDetailsValidator.validate(userDetailDTO);
-//        if (!validationResult.isEmpty()) {
-//            return new ResponseEntity<>(new ResponseDTO<Map<String, String>>(validationResult
-//                    ,request.getRequestURI()), HttpStatus.BAD_REQUEST);
-//        }
         try {
-            int result = baseService.signInUser(userDetailDTO);
+            int result = authService.signInUser(userDetailDTO);
             if (result == 200)
                 return new ResponseEntity<>(new ResponseDTO<String>("Sign In Successfull"
                         , request.getRequestURI()), HttpStatus.OK);

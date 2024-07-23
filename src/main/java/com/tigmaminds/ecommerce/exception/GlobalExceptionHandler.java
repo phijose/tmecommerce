@@ -16,6 +16,7 @@ import jakarta.validation.ConstraintViolation;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -42,5 +43,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ResponseDTO<String>> productNotDound(WebRequest request){
+        return new ResponseEntity<>(new ResponseDTO<String>("Product not found",
+                request.getDescription(false).replaceFirst("uri=",""))
+                , HttpStatus.NOT_FOUND);
+    }
 }

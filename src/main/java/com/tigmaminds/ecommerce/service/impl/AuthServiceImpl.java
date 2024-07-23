@@ -2,15 +2,15 @@ package com.tigmaminds.ecommerce.service.impl;
 
 import com.tigmaminds.ecommerce.dao.UsersDao;
 import com.tigmaminds.ecommerce.dto.UserDetailDTO;
-import com.tigmaminds.ecommerce.service.BaseService;
+import com.tigmaminds.ecommerce.service.AuthService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BaseServiceImpl implements BaseService {
+public class AuthServiceImpl implements AuthService {
 
     UsersDao usersDao;
 
-    public BaseServiceImpl(UsersDao usersDao){
+    public AuthServiceImpl(UsersDao usersDao){
         this.usersDao = usersDao;
     }
 
@@ -38,5 +38,10 @@ public class BaseServiceImpl implements BaseService {
             int rowsAffected = usersDao.setUserByUsernamAndPassword(userDetailDTO.getUsername(),userDetailDTO.getPassword());
             return rowsAffected>0;
         }
+    }
+
+    @Override
+    public Boolean isAuthorized(String username) {
+        return usersDao.isAdmin(username);
     }
 }
